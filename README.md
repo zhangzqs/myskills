@@ -11,7 +11,7 @@
 
 ## 安装
 
-推荐使用 [skills.sh](https://github.com/anthropics/skills) 一键安装：
+推荐使用 skills.sh 一键安装：
 
 ```bash
 # 安装全部 skills
