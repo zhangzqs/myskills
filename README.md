@@ -1,18 +1,64 @@
 # myskills
 
-一个轻量的 skills 仓库，当前包含一个用于自动化分类 GitHub Stars 的 skill。
+一个面向 Claude Code 的轻量 Skills 仓库，提供开箱即用的 Agent Skills。
 
-## 内容
+## 包含的 Skills
 
-- `skills/classifying-github-stars`
+| Skill | 说明 |
+|-------|------|
+| `classifying-github-stars` | 自动分析 GitHub Stars，生成分类计划并写入 GitHub Lists |
+| `dev-personality-test` | 面向程序员的全方位人格测试（MBTI / 大五 / 九型 / 霍兰德 / 程序员画像） |
+
+## 安装
+
+推荐使用 [skills.sh](https://github.com/anthropics/skills) 一键安装：
+
+```bash
+# 安装全部 skills
+npx skills add zzq/myskills
+
+# 仅安装某个 skill
+npx skills add zzq/myskills classifying-github-stars
+npx skills add zzq/myskills dev-personality-test
+```
+
+安装完成后，skills 会被放置到 `~/.claude/skills/` 目录，在所有项目中均可使用。
+
+### 手动安装
+
+如果不使用 `npx skills`，也可以手动克隆：
+
+```bash
+git clone https://github.com/zzq/myskills.git
+cp -r myskills/skills/* ~/.claude/skills/
+```
+
+## 使用方式
+
+在 Claude Code 中直接用自然语言触发即可，例如：
+
+- "帮我整理 GitHub Stars"
+- "做一个程序员性格测试"
+
+也可以用斜杠命令显式调用：
+
+```
+/classifying-github-stars
+/dev-personality-test
+```
 
 ## 依赖
 
-- `gh`
-- `jq`
-- 有效的 GitHub 登录态
+### classifying-github-stars
 
-## 说明
+- [`gh`](https://cli.github.com/) — GitHub CLI
+- [`jq`](https://jqlang.github.io/jq/) — JSON 处理工具
+- 有效的 GitHub 登录态（`gh auth login`）
 
-这个仓库只包含 skill 及其最小辅助脚本，不包含完整 CLI。`classifying-github-stars` 默认先生成分类计划，再执行 GitHub Lists 写入。
+### dev-personality-test
 
+无额外依赖。
+
+## License
+
+MIT
