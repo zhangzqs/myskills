@@ -104,6 +104,26 @@ npm info <package> bin
 
 在生成的 SKILL.md 中，记录发现的兼容性问题和解决方案。
 
+### Step 2.5: 验证工具可用性
+
+**重要：不要信任文档中的工具名，必须实际验证。**
+
+很多 MCP 服务器的文档（README）与实际实现不一致。在 Step 2 获取工具列表后，必须：
+
+1. 用实际工具名（从 `mcporter list --schema` 输出中提取）替换文档中的工具名
+2. 对每个工具进行一次实际调用测试，确认可用
+3. 记录工具的实际参数格式（可能与文档描述不同）
+
+```bash
+# 测试工具是否可用
+npx mcporter call --stdio "npx -y <package>" --env TOKEN=test <tool_name> <required_params>
+```
+
+如果调用失败，检查：
+- 工具名是否正确（大小写、下划线）
+- 必需参数是否齐全
+- 环境变量是否正确传递
+
 ### Step 3: 分析工具
 
 从获取的 schema 中提取：
@@ -215,6 +235,70 @@ npx mcporter call --stdio "<command>" <tool_name> <param>:<value>
 ```
 skills/<skill-name>/SKILL.md
 ```
+
+### Step 7: 脚本封装（推荐）
+
+对于工具数量 >= 3 个的 MCP 服务器，建议创建 `scripts/` 目录封装 bash 脚本，简化 agent 调用。
+
+**目录结构：**
+
+```
+skills/<skill-name>/
+  SKILL.md
+  scripts/
+    _common.sh      # 公共函数
+    <tool1>.sh      # 每个工具一个脚本
+    <tool2>.sh
+```
+
+**`_common.sh` 模板：**
+
+```bash
+#!/usr/bin/env bash
+# 公共辅助函数
+
+die() { echo "错误: $*" >&2; exit 1; }
+require_cmd() { command -v "$1" >/dev/null 2>&1 || die "缺少依赖: $1"; }
+check_token() { [[ -n "${SERVICE_TOKEN:-}" ]] || die "SERVICE_TOKEN 未设置"; }
+
+# 从 git remote 检测 owner/repo
+parse_owner_repo() {
+  # ... 解析 --owner/--repo 参数，fallback 到 git remote
+}
+
+# 调用 MCP 工具，自动处理错误
+call_mcp() {
+  local tool="$1"; shift
+  local result
+  result=$(npx mcporter call --stdio "<command>" --env TOKEN="$TOKEN" "$tool" "$@" 2>&1)
+  [[ "$result" == Error:* ]] && die "${result#Error: }"
+  echo "$result"
+}
+```
+
+**脚本封装要点：**
+
+1. 每个脚本使用 `set -euo pipefail` 严格模式
+2. 支持 `--help` 显示用法
+3. 支持 `--json` 输出原始 JSON
+4. 自动从 git remote 检测 owner/repo
+5. 用 jq 格式化输出为人类可读格式
+
+**大 JSON 处理：**
+
+某些 MCP 工具返回超大 JSON（>1MB），直接管道传递可能被截断。解决方案：
+
+```bash
+# 先写入临时文件，再用 jq 提取需要的字段
+tmpfile=$(mktemp)
+trap "rm -f '$tmpfile'" EXIT
+npx mcporter call ... > "$tmpfile" 2>&1
+jq '{field1, field2}' "$tmpfile"
+```
+
+**SKILL.md 更新：**
+
+在生成的 SKILL.md 的 `Command Syntax` 部分，同时提供脚本调用和原始 mcporter 调用两种方式，优先推荐脚本。
 
 ## Output Format
 
