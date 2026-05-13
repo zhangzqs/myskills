@@ -4,12 +4,12 @@
 
 ## 包含的 Skills
 
-| Skill | 说明 |
-|-------|------|
-| `classifying-github-stars` | 自动分析 GitHub Stars，生成分类计划并写入 GitHub Lists |
-| `dev-personality-test` | 面向程序员的全方位人格测试（MBTI / 大五 / 九型 / 霍兰德 / 程序员画像） |
-| `codecov-mcp` | 通过 mcporter 调用 codecov-mcp，查询 Codecov 代码覆盖率数据 |
-| `mcp-to-mcporter-skill` | 将任意 MCP 服务器转换为基于 mcporter 的 Claude Code skill |
+| Skill                      | 说明                                                                   |
+| -------------------------- | ---------------------------------------------------------------------- |
+| `classifying-github-stars` | 自动分析 GitHub Stars，生成分类计划并写入 GitHub Lists                 |
+| `dev-personality-test`     | 面向程序员的全方位人格测试（MBTI / 大五 / 九型 / 霍兰德 / 程序员画像） |
+| `codecov-mcp`              | 通过 mcporter 调用 codecov-mcp，查询 Codecov 代码覆盖率数据            |
+| `mcp-to-mcporter-skill`    | 将任意 MCP 服务器转换为基于 mcporter 的 Claude Code skill              |
 
 ## 安装
 
