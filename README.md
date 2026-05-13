@@ -8,6 +8,8 @@
 |-------|------|
 | `classifying-github-stars` | 自动分析 GitHub Stars，生成分类计划并写入 GitHub Lists |
 | `dev-personality-test` | 面向程序员的全方位人格测试（MBTI / 大五 / 九型 / 霍兰德 / 程序员画像） |
+| `codecov-mcp` | 通过 mcporter 调用 codecov-mcp，查询 Codecov 代码覆盖率数据 |
+| `mcp-to-mcporter-skill` | 将任意 MCP 服务器转换为基于 mcporter 的 Claude Code skill |
 
 ## 安装
 
@@ -39,10 +41,11 @@ cp -r myskills/skills/* ~/.claude/skills/
 
 - "帮我整理 GitHub Stars"
 - "做一个程序员性格测试"
+- "把 linear-mcp 转成 skill"
 
 也可以用斜杠命令显式调用：
 
-```
+```text
 /classifying-github-stars
 /dev-personality-test
 ```
@@ -58,6 +61,17 @@ cp -r myskills/skills/* ~/.claude/skills/
 ### dev-personality-test
 
 无额外依赖。
+
+### codecov-mcp
+
+- Node.js >= 18
+- Codecov API Access Token（从 [Codecov 控制台](https://app.codecov.io/account) 获取）
+- mcporter 会自动安装 codecov-mcp（通过 npx）
+
+### mcp-to-mcporter-skill
+
+- Node.js >= 18
+- mcporter（`npm install -g mcporter`）
 
 ## License
 

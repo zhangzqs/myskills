@@ -1,0 +1,23 @@
+{
+  "skill_name": "mcp-to-mcporter-skill",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我把 linear-mcp 这个 MCP 服务器转成 skill，我想在 Claude Code 里直接用",
+      "expected_output": "生成 skills/linear-mcp/SKILL.md，包含 Linear 的 issue、project、comment 等工具说明",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "我想把 https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem 这个文件系统的 MCP 包装成 skill",
+      "expected_output": "生成 skills/filesystem/SKILL.md，包含文件读写、目录操作等工具说明",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "wrap this MCP as a skill: npx -y @anthropic/mcp-server-github，我有 GITHUB_TOKEN 环境变量",
+      "expected_output": "生成 skills/github/SKILL.md，包含 GitHub API 工具说明，Command Syntax 中包含 --env GITHUB_TOKEN",
+      "files": []
+    }
+  ]
+}
