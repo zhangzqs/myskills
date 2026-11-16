@@ -10,6 +10,7 @@
 | `dev-personality-test`     | 面向程序员的全方位人格测试（MBTI / 大五 / 九型 / 霍兰德 / 程序员画像） |
 | `codecov-mcp`              | 通过 mcporter 调用 codecov-mcp，查询 Codecov 代码覆盖率数据            |
 | `mcp-to-mcporter-skill`    | 将任意 MCP 服务器转换为基于 mcporter 的 Claude Code skill              |
+| `wechat-chat-extract`      | 解密微信 4.x 数据库，导出聊天记录为文本/JSONL，统计消息量与通话时长    |
 
 ## 安装
 
@@ -72,6 +73,13 @@ cp -r myskills/skills/* ~/.claude/skills/
 
 - Node.js >= 18
 - mcporter（`npm install -g mcporter`）
+
+### wechat-chat-extract
+
+- Windows + 微信 4.x（数据目录 `Documents\xwechat_files`）
+- Python 3.9+
+- `pip install pycryptodome zstandard`
+- 32 字节 passphrase 的十六进制串，获取方式见 `references/key-recovery.md`
 
 ## License
 

@@ -54,6 +54,7 @@ cp -r skills/<skill-name> ~/.claude/skills/  # 手动
 | `dev-personality-test`     | 纯指令型       | 无                             |
 | `codecov-mcp`              | mcporter 调用  | Node.js >= 18, `CODECOV_TOKEN` |
 | `mcp-to-mcporter-skill`    | mcporter 调用  | Node.js >= 18, `mcporter`      |
+| `wechat-chat-extract`      | Python 脚本驱动 | Python 3.9+, `pycryptodome`, `zstandard` |
 
 ## mcporter 调用模式
 
